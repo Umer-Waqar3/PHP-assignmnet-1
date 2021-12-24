@@ -26,13 +26,13 @@ function test_input($data) {
 
 <h2>Form to create a book</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-  Name: <input type="text" name="name">
+  Name: <input type="text" name="name" required>
   <br><br>
-  Publisher: <input type="text" name="publisher">
+  Publisher: <input type="text" name="publisher" required >
   <br><br>
-  ISBN: <input type="number" name="isbn">
+  ISBN: <input type="number" name="isbn" required >
   <br><br>
-  Cover image: <input type="file" id="img" name="img" accept="image/*">
+  Cover image: <input type="file" id="img" name="img" accept="image/*" required >
   <br><br>
   <input type="submit" name="submit" value="Submit">  
 </form>
