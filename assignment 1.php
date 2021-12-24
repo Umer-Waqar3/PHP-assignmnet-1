@@ -8,12 +8,33 @@
 <?php
 // define variables and set to empty values
 $name = $publisher = $img = $isbn = "";
+$nameErr = $publisherErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $name = test_input($_POST["name"]);
-  $publisher = test_input($_POST["publisher"]);
-  $isbn = test_input($_POST["isbn"]);
-  $img = test_input($_POST["img"]);
+  if (empty($_POST["name"])) {
+    $nameErr = "Name is required";
+  } else {
+    $name = test_input($_POST["name"]);
+  }
+
+  if (empty($_POST["publisher"])) {
+    $publisherErr = "publisher is required";
+  } else {
+    $publisher = test_input($_POST["publisher"]);
+  }
+
+  if (empty($_POST["isbn"])) {
+    $isbn = "";
+  } else {
+    $isbn = test_input($_POST["isbn"]);
+  }
+
+  if (empty($_POST["img"])) {
+    $img = "";
+  } else {
+    $img = test_input($_POST["img"]);
+  }
+
 }
 
 function test_input($data) {
@@ -26,13 +47,15 @@ function test_input($data) {
 
 <h2>Form to create a book</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-  Name: <input type="text" name="name" required>
+  Name: <input type="text" name="name" >
+  <span class="error">* <?php echo $nameErr;?></span>
   <br><br>
-  Publisher: <input type="text" name="publisher" required >
+  Publisher: <input type="text" name="publisher" >
+  <span class="error">* <?php echo $publisherErr;?></span>
   <br><br>
-  ISBN: <input type="number" name="isbn" required >
+  ISBN: <input type="number" name="isbn" >
   <br><br>
-  Cover image: <input type="file" id="img" name="img" accept="image/*" required >
+  Cover image: <input type="file" id="img" name="img" accept="image/*"  >
   <br><br>
   <input type="submit" name="submit" value="Submit">  
 </form>
