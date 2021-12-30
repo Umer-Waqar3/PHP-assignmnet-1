@@ -8,23 +8,22 @@
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  
 <style>
-  .button1{
-    color:goldenrod;
-    border-color: goldenrod;
-    background-color: transparent;
-    border-color: transparent;
-    padding: 10px;
-    font-size: 20px;
-    cursor: pointer;
-}
+
 .button1:hover{
   border: 1px solid goldenrod;
   border-radius: 10px;
   box-shadow: 2px 2px 5px goldenrod;
 }
-</style>    
+</style>   
+<script>
+  function edit(this){
+    alert("sdfsd");
+    this.css({"border":"10px solid black"});
+  }
+</script> 
 </head>
 <body>  
 
@@ -166,7 +165,7 @@ function test_input($data) {
   <input type="submit" name="submit" value="Submit">  
 </form>
 
-<?php
+
 
 
 <h2 class="center grey-text">Books!</h2>
@@ -187,16 +186,15 @@ function test_input($data) {
           </div>
           <div class="card-action" style="display: flex; flex-direction:row; justify-content:space-between; width:100%; ">
               <div class="left-align">
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
-                  <input type="hidden" name="id" id="id" value="<?php echo htmlspecialchars($book['name']); ?>">
-                  <input type="hidden" name="id" id="id" value="<?php echo htmlspecialchars($book['publisher ']); ?>">
-                  <input type="hidden" name="id" id="id" value="<?php echo htmlspecialchars($book['id']); ?>">
-                  <button class="button1" type="submit" id="edit" name="edit" href="#">edit</button>
-                </form>
+                
+                  <input type="hidden" id="name" value="<?php echo htmlspecialchars($book['name']); ?>">
+                  <input type="hidden" id="publisher" value="<?php echo htmlspecialchars($book['publisher']); ?>">
+                  <input type="hidden" id="id" value="<?php echo htmlspecialchars($book['id']); ?>">
+                  <button class="button1" id="edit" name="edit" onclick="edit(this)">edit</button>
               </div>
               <div class=" right-align">
               <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
-                  <input type="hidden" name="id" id="id" value="<?php echo htmlspecialchars($book['id']); ?>">
+                  <input type="hidden" name="id" value="<?php echo htmlspecialchars($book['id']); ?>">
                   <button class="button1" type="submit" id="delete" name="delete" value="delete" >delete</button>
                 </form>
               </div>
