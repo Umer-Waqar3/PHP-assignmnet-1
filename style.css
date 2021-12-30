@@ -4,3 +4,8 @@ body{
     justify-content: center;
     align-items: center;
 }
+button{
+    color:goldenrod;
+    border-color: goldenrod;
+    background-color: transparent;
+}
