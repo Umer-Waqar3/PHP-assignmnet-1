@@ -9,53 +9,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- 
-<style>
-.button1{
-    color:goldenrod;
-    background-color: transparent;
-    border-color: goldenrod;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 20px;
-    cursor: pointer;
-}
-.button1:hover{
-  border: 1px solid goldenrod;
-  border-radius: 10px;
-  box-shadow: 2px 2px 5px goldenrod;
-}
-</style>   
+  
 <script>
 $(document).ready(function(){
   $('button[name="edit"]').click(function(){
-    $('input[name="name"]').val($(this).prev().prev().prev().prev().val()); 
-    $('input[name="publisher"]').val($(this).prev().prev().prev().val()); 
-    $('input[name="isbn"]').val($(this).prev().prev().val()); 
+    $('input[name="name1"]').val($(this).prev().prev().prev().prev().val()); 
+    $('input[name="publisher1"]').val($(this).prev().prev().prev().val()); 
+    $('input[name="isbn1"]').val($(this).prev().prev().val()); 
     $('input[name="id"]').val($(this).prev().val()); 
-    $( 'input[name="edit"]' ).prop( "disabled", false );
-    //$( 'input[name="submit"]' ).prop( "disabled", true );
+    $( '#form1' ).css( "display","none" );
+    $( '#form2' ).css( "display","block" );
   });
 });
-$(document).ready(function(){
-  $('input[name="edit"]').click(function(){
-    $( 'input[name="edit"]' ).prop( "disabled", true );
-    $( 'input[name="submit"]' ).prop( "disabled", false );
-  });
-});
+function edit(){
+  $( '#form2' ).css( "display","none" );
+    $( '#form1' ).css( "display","block" );
+  };
 </script> 
 </head>
 <body>  
 
 <?php
 // define variables and set to empty values
-$name = $publisher = $img = $isbn = $file = $image_name = $id = "";
+$name = $publisher = $img = $isbn = $file = $image_name = $id = $sql5 = "";
 $nameErr = $publisherErr = $isbnErr = $imgErr = "";
 $conn = mysqli_connect('localhost','umer','test1234','assignment1');
-
-if(isset($_post['submit'])){
-  echo 'kjhkjh';
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["name"])) {
@@ -115,6 +93,72 @@ else{
 
 
 
+
+if (empty($_POST["id"])) {
+     
+} else {
+  if (!preg_match("/^[0-9]*$/",$_POST["id"])) {
+   
+  }
+  else{
+    $id=test_input($_POST["id"]);
+}
+ 
+}
+
+if (empty($_POST["name1"])) {
+  $nameErr = "Name is required";
+} else {
+  if (!preg_match("/^[a-zA-Z-.' ]*$/",$_POST["name1"])) {
+    $nameErr = "Only letters and white space allowed";
+  }
+  else{
+    $name = test_input($_POST["name1"]);
+  }
+  
+}
+
+if (empty($_POST["publisher1"])) {
+  $publisherErr = "publisher is required";
+} else {
+  if (!preg_match("/^[a-zA-Z-.' ]*$/",$_POST["publisher1"])) {
+    $publsherErr = "Only letters and white space allowed";
+  }
+  else{
+    $publisher = test_input($_POST["publisher1"]);
+}
+  }
+  
+
+if (empty($_POST["isbn1"])) {
+  $isbnErr = "isbn is required";
+} else {
+  if (!preg_match("/^[0-9]*$/",$_POST["isbn1"])) {
+    $isbnErr = "Only numbers allowed";
+  }
+  else{
+    $isbn = test_input($_POST["isbn1"]);
+}
+ 
+}
+
+if(!empty($_FILES["image1"]["name"])) { 
+  // Get file info 
+  $fileName = basename($_FILES["image1"]["name"]); 
+  $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+   
+  // Allow certain file formats 
+  $allowTypes = array('jpg','png','jpeg','gif'); 
+  if(in_array($fileType, $allowTypes)){ 
+    $file = addslashes(file_get_contents($_FILES["image1"]["tmp_name"])); 
+    $sql5 = "UPDATE books SET name='$name',publisher='$publisher',isbn=$isbn,image='$file' WHERE id=$id"; 
+  }else{ 
+      $imgErr = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
+  } 
+}else{ 
+$sql5 = "UPDATE books SET name='$name',publisher='$publisher',isbn=$isbn WHERE id=$id"; 
+}
+
 }
 
 if(!$conn){
@@ -156,80 +200,32 @@ else{
     }
 
   }  
+    
 
-
+   
+  if($name!=""&&$publisher!=""&&$isbn!=""&&$id!=""){
+  if(mysqli_query($conn, $sql5)){
+    echo 'edited' ;
+    echo '<script type="text/javascript">',
+    'edit();',
+    '</script>'
+  ;
+    echo "<meta http-equiv='refresh' content='0'>";
+    // success
+  } else {
+    echo $sql5;
+    echo 'query error edit: '. mysqli_error($conn);
+   
+  }
+  
+}
 
   mysqli_close($conn);
 
 
 }
 
-if(isset($_post['edit'])){
-  echo '<script>alert("Welcome to Geeks for Geeks")</script>';
-  $id=test_input($_POST["id"]);
 
-  if (empty($_POST["name"])) {
-    $nameErr = "Name is required";
-  } else {
-    if (!preg_match("/^[a-zA-Z-.' ]*$/",$_POST["name"])) {
-      $nameErr = "Only letters and white space allowed";
-    }
-    else{
-      $name = test_input($_POST["name"]);
-    }
-    
-  }
-
-  if (empty($_POST["publisher"])) {
-    $publisherErr = "publisher is required";
-  } else {
-    if (!preg_match("/^[a-zA-Z-.' ]*$/",$_POST["publisher"])) {
-      $publsherErr = "Only letters and white space allowed";
-    }
-    else{
-      $publisher = test_input($_POST["publisher"]);
-  }
-    }
-    
-
-  if (empty($_POST["isbn"])) {
-    $isbnErr = "isbn is required";
-  } else {
-    if (!preg_match("/^[0-9]*$/",$_POST["isbn"])) {
-      $isbnErr = "Only numbers allowed";
-    }
-    else{
-      $isbn = test_input($_POST["isbn"]);
-  }
-   
-  }
-
-  if(!empty($_FILES["image"]["name"])) { 
-    // Get file info 
-    $fileName = basename($_FILES["image"]["name"]); 
-    $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-     
-    // Allow certain file formats 
-    $allowTypes = array('jpg','png','jpeg','gif'); 
-    if(in_array($fileType, $allowTypes)){ 
-      $file = addslashes(file_get_contents($_FILES["image"]["tmp_name"])); 
-      $sql5 = "UPDATE books SET name=$name,publisher=$publisher,isbn=$isbn,image=$file WHERE id=$id"; 
-    }else{ 
-        $imgErr = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
-    } 
-}else{ 
-  $sql5 = "UPDATE books SET name=$name,publisher=$publisher,isbn=$isbn WHERE id=$id"; 
-} 
-
-if(mysqli_query($conn, $sql5)){
-  echo 'edited' ;
-  echo "<meta http-equiv='refresh' content='0'>";
-  // success
-} else {
-  echo 'query error: '. mysqli_error($conn);
-}
-
-}
 
 function test_input($data) {
   $data = trim($data);
@@ -240,7 +236,7 @@ function test_input($data) {
 ?>
 
 <h2>Form to create a book</h2>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">  
+<form id="form1" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">  
   Name: <input type="text" name="name" >
   <span class="error">* <?php echo $nameErr;?></span>
   <br><br>
@@ -251,18 +247,33 @@ function test_input($data) {
   <span class="error">* <?php echo $isbnErr;?></span>
   <br><br>
   Cover image: <input type="file" id="image" name="image" >
+  <br>
+  <span class="error">* <?php echo $imgErr;?></span>
+  <br><br>
+  <input class="button1" type="submit" name="submit" value="Submit">  
+  
+</form>
+
+<form id="form2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">  
+  Name: <input type="text" name="name1" >
+  <span class="error">* <?php echo $nameErr;?></span>
+  <br><br>
+  Publisher: <input type="text" name="publisher1" >
+  <span class="error">* <?php echo $publisherErr;?></span>
+  <br><br>
+  ISBN: <input type="number" name="isbn1" >
+  <span class="error">* <?php echo $isbnErr;?></span>
+  <br><br>
+  Cover image: <input type="file" name="image1" >
   <span class="error">* <?php echo $imgErr;?></span>
   <br><br>
   <input type="hidden" name="id">
-  <input type="submit" id="edit" name="edit" value="edit">
-  <input type="submit" name="submit" value="Submit">  
+  <input class="button1" type="submit" id="edit" name="edit" value="edit">
   
 </form>
 
 
-
-
-<h2 class="center grey-text">Books!</h2>
+<h2 class="center">Books!</h2>
 
 <div class="container">
   <div class="row">
