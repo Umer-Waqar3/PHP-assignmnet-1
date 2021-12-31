@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>  
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
   
 <script>
 $(document).ready(function(){
@@ -19,12 +20,16 @@ $(document).ready(function(){
     $('input[name="id"]').val($(this).prev().val()); 
     $( '#form1' ).css( "display","none" );
     $( '#form2' ).css( "display","block" );
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   });
 });
 function edit(){
   $( '#form2' ).css( "display","none" );
     $( '#form1' ).css( "display","block" );
   };
+
+
 </script> 
 </head>
 <body>  
@@ -165,7 +170,7 @@ if(!$conn){
   echo 'Connection error' . mysqli_connect_error(); 
 }
 else{
-  $sql = 'SELECT * FROM books ORDER BY id';
+  $sql = 'SELECT * FROM books ORDER BY id LIMIT 0,10';
 
   $result = mysqli_query($conn,$sql);
 
@@ -175,14 +180,13 @@ else{
 
   if($name!=""&&$publisher!=""&&$isbn!=""&&$file!=""&&$id==""){
     $sql2 = "INSERT INTO books(name,publisher,isbn,image) VALUES('$name','$publisher', '$isbn', '$file')";
-
     if(mysqli_query($conn, $sql2)){
       echo 'INSERTED' ;
       echo "<meta http-equiv='refresh' content='0'>";
       $image_name = $_FILES["image"]["name"];
       // success
     } else {
-      echo 'query error: '. mysqli_error($conn);
+      echo 'query error insert: '. mysqli_error($conn);
     }
 
 
@@ -280,10 +284,10 @@ function test_input($data) {
 
     <?php foreach($books as $book){ ?>
 
-      <div class="col s6 md3">
+      <div class="col s4">
         <div class="card z-depth-0">
           <div class="card-content center">
-            <?php  echo '<img src="data:image;base64,'.base64_encode( $book['image'] ).'" style="height:300px; width:300px;"/>'; 
+            <?php  echo '<img src="data:image;base64,'.base64_encode( $book['image'] ).'"/>'; 
             ?>
             <h4><?php echo htmlspecialchars($book['name']); ?></h4>
             <h5><?php echo htmlspecialchars($book['publisher']); ?></h5>
