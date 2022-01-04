@@ -14,6 +14,7 @@
 <script>
 $(document).ready(function(){
   $('button[name="edit"]').click(function(){
+    $('input[name="image2"]').val($(this).prev().prev().prev().prev().prev().val()); 
     $('input[name="name1"]').val($(this).prev().prev().prev().prev().val()); 
     $('input[name="publisher1"]').val($(this).prev().prev().prev().val()); 
     $('input[name="isbn1"]').val($(this).prev().prev().val()); 
@@ -192,6 +193,7 @@ if(!empty($_FILES["image1"]["name"])) {
     if ( move_uploaded_file( $_FILES["image1"]["tmp_name"], $filePath)){
        $file = $filePath; 
        $sql5 = "UPDATE books SET name='$name',publisher='$publisher',isbn=$isbn,image='$file' WHERE id=$id"; 
+
     }
     else{
       $imgErr1 = 'unable to upload file'; 
@@ -249,12 +251,15 @@ else{
    
   if($name!=""&&$publisher!=""&&$isbn!=""&&$id!=""){
   if(mysqli_query($conn, $sql5)){
+    $del_image =  test_input($_POST['image2']);;
+    unlink($del_image);
+    echo $del_image;
     echo 'edited' ;
     echo '<script type="text/javascript">',
     'edit();',
     '</script>'
   ;
-    echo "<meta http-equiv='refresh' content='0'>";
+   echo "<meta http-equiv='refresh' content='0'>";
     // success
   } else {
     echo $sql5;
@@ -340,18 +345,19 @@ function test_input($data) {
 
 <form id="form2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">  
   Name: <input type="text" name="name1" >
-  <span class="error">* <?php echo $nameErr1;?></span>
+  <span class="error"><?php echo $nameErr1;?></span>
   <br><br>
   Publisher: <input type="text" name="publisher1" >
-  <span class="error">* <?php echo $publisherErr1;?></span>
+  <span class="error"><?php echo $publisherErr1;?></span>
   <br><br>
   ISBN: <input type="number" name="isbn1" >
-  <span class="error">* <?php echo $isbnErr1;?></span>
+  <span class="error"><?php echo $isbnErr1;?></span>
   <br><br>
   Cover image: <input type="file" name="image1" >
-  <span class="error">* <?php echo $imgErr1;?></span>
+  <span class="error"><?php echo $imgErr1;?></span>
   <br><br>
   <input type="hidden" name="id">
+  <input type="hidden" name="image2">
   <input class="button1" type="submit" id="edit" name="edit" value="edit">
   
 </form>
@@ -379,7 +385,7 @@ function test_input($data) {
           </div>
           <div class="card-action" style="display: flex; flex-direction:row; justify-content:space-between; width:100%; ">
               <div class="left-align">
-                  
+                  <input type="hidden" value="<?php echo htmlspecialchars($book['image']); ?>">
                   <input type="hidden" value="<?php echo htmlspecialchars($book['name']); ?>">
                   <input type="hidden" value="<?php echo htmlspecialchars($book['publisher']); ?>">
                   <input type="hidden" value="<?php echo htmlspecialchars($book['isbn']); ?>">
