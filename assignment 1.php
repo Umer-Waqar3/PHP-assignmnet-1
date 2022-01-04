@@ -232,8 +232,9 @@ else{
   }
   if(isset($_POST['delete'])){
     $id = test_input($_POST['id']);
+    $del_image =  test_input($_POST['image']);;
+    unlink($del_image);
     $sql3 = "DELETE FROM books WHERE id=$id";
-    echo $sql3;
     if(mysqli_query($conn, $sql3)){
       echo 'DELETED' ;
       echo "<meta http-equiv='refresh' content='0'>";
@@ -378,7 +379,7 @@ function test_input($data) {
           </div>
           <div class="card-action" style="display: flex; flex-direction:row; justify-content:space-between; width:100%; ">
               <div class="left-align">
-                
+                  
                   <input type="hidden" value="<?php echo htmlspecialchars($book['name']); ?>">
                   <input type="hidden" value="<?php echo htmlspecialchars($book['publisher']); ?>">
                   <input type="hidden" value="<?php echo htmlspecialchars($book['isbn']); ?>">
@@ -388,6 +389,7 @@ function test_input($data) {
               <div class=" right-align">
               <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
                   <input type="hidden" name="id" value="<?php echo htmlspecialchars($book['id']); ?>">
+                  <input type="hidden" name="image" value="<?php echo htmlspecialchars($book['image']); ?>">
                   <button class="button1" type="submit" name="delete" >delete</button>
                 </form>
               </div>
