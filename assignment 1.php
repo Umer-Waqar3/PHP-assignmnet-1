@@ -54,7 +54,7 @@ if($page=="" || $page=="1"){
   $page1 = 0;
 }
 else{
-  $page1 = ($page*9)-9;
+  $page1 = ($page*10)-10;
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -210,7 +210,7 @@ if(!$conn){
   echo 'Connection error' . mysqli_connect_error(); 
 }
 else{
-  $sql = "SELECT * FROM books ORDER BY id LIMIT $page1 ,9";
+  $sql = "SELECT * FROM books ORDER BY id LIMIT $page1 ,10";
   $result = mysqli_query($conn,$sql);
 
   $books = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -367,7 +367,7 @@ function test_input($data) {
 
     <?php foreach($books as $book){ ?>
 
-      <div class="col s4">
+      <div class="col m4 s6 ">
         <div class="card z-depth-0">
           <div class="card-content center">
             <?php  echo '<img src="'.$book['image'].'">'; 
