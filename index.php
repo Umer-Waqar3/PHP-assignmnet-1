@@ -121,7 +121,7 @@ function test_input($data) {
 <!-- pagination -->
 <div style="padding-bottom: 100px;"> Pages:
 <?php for($b=1;$b<=$pages;$b++){
-  ?> <a href="assignment 1.php?page=<?php echo $b; ?>" ><?php echo $b; ?></a><?php
+  ?> <a href="index.php?page=<?php echo $b; ?>" ><?php echo $b; ?></a><?php
 } ?> </div>
 <div></div>
 </body>
