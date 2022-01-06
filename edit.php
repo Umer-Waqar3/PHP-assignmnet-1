@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       
     
     if (empty($_POST["isbn1"])) {
-      $isbnErr = "isbn is required";
+      $isbnErr1 = "isbn is required";
     } else {
       if (!preg_match("/^[0-9]*$/",$_POST["isbn1"])) {
         $isbnErr1 = "Only numbers allowed";

@@ -27,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
   if (empty($_POST["isbn"])) {
+    
     $isbnErr = "isbn is required";
   } 
   else {

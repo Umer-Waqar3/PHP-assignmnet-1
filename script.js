@@ -11,7 +11,23 @@ $(document).ready(function(){
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     });
   });
-  function edit(){
-    $( '#form2' ).css( "display","none" );
-      $( '#form1' ).css( "display","block" );
-    };
+
+function edit(){
+  $( '#form2' ).css( "display","none" );
+  $( '#form1' ).css( "display","block" );
+};
+
+$(document).ready(function(){
+  $('input[name="delete"]').click(function(){
+    $(this).css("display","none");
+    $(this).prev().css("display","block");
+    
+  });
+});
+
+$(document).ready(function(){
+  $('input[name="cancel"]').click(function(){
+    $(this).parent().css("display","none");
+    $(this).parent().next().css("display","block");
+  });
+});

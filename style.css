@@ -48,3 +48,28 @@ a{
 a:hover{
     background-color: lightblue;
 }
+img{
+  transition: transform .5s;
+}
+img:hover{
+  transform: scale(1.18,1.18);
+}
+#are-you-sure{
+  display:none;
+}
+.overflow{
+  overflow: hidden;
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+  height: 40px;
+  font-size: 30px;
+  font-weight: bold;
+}
+.overflow1{
+  overflow: hidden;
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+  height: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}

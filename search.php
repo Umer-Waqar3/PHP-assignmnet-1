@@ -34,10 +34,17 @@ else{
           mysqli_free_result($result);
         }
         else{
-          $searchErr = 'No result found';
+          $searchErr = '<h2>No result found</h2>';
+          $books = array();
         }
-    
-         $pages = count($books);
+        if($books!=null){
+          $count = count($books);
+          $pages = ceil($count/10);
+        }
+        else{
+          $pages = 0;
+        }
+        
       }
      
     

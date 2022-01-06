@@ -4,7 +4,7 @@ if(!$conn){
     echo 'Connection error' . mysqli_connect_error(); 
 }
 else{
-    if(isset($_POST['delete'])){
+    if(isset($_POST['are-you-sure'])){
         $id = test_input($_POST['id']);
         $del_image =  test_input($_POST['image']);
         unlink($del_image);

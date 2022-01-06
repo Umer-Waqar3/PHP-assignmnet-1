@@ -66,6 +66,8 @@ function test_input($data) {
   <input type="hidden" name="id">
   <input type="hidden" name="image2">
   <input class="button1" type="submit" id="edit" name="edit" value="edit">
+  <a class="button1" href="index.php">Cancel</a>
+</form>
 
 <!-- Search form -->  
 </form>
@@ -89,9 +91,9 @@ function test_input($data) {
           <div class="card-content center">
             <?php  echo '<img src="'.$book['image'].'">'; 
             ?>
-            <h5><?php echo htmlspecialchars($book['name']); ?></h5>
-            <h6><?php echo htmlspecialchars($book['publisher']); ?></h6>
-            <div><?php echo htmlspecialchars($book['isbn']); ?></div>
+            <div class="overflow"><?php echo htmlspecialchars($book['name']); ?></div>
+            <div class="overflow1"><?php echo htmlspecialchars($book['publisher']); ?></div>
+            <span><?php echo htmlspecialchars($book['isbn']); ?></span>
           </div>
           <div class="card-action" style="display: flex; flex-direction:row; justify-content:space-between; width:100%; ">
               <div class="left-align">
@@ -106,7 +108,11 @@ function test_input($data) {
               <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
                   <input type="hidden" name="id" value="<?php echo htmlspecialchars($book['id']); ?>">
                   <input type="hidden" name="image" value="<?php echo htmlspecialchars($book['image']); ?>">
-                  <button class="button1" type="submit" name="delete" >delete</button>
+                  <div id="are-you-sure">
+                  <button class="button1"  type="submit"  name="are-you-sure" >Are You Sure</button>
+                  <input class="button1" type="button" id="cancel" name="cancel" value="cancel">
+                  </div>
+                  <input class="button1" type="button" name="delete" value="delete">
                 </form>
               </div>
           </div>
