@@ -32,13 +32,13 @@ function test_input($data) {
 <!-- Insert form -->
 <h2>Form to create a book</h2>
 <form id="form1" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">  
-  Name: <input type="text" name="name" >
+  Name: <input type="text" name="name" value="<?php echo isset($_POST['name']) ? $_POST['name'] : '' ?>">
   <span class="error">* <?php echo $nameErr;?></span>
   <br><br>
-  Publisher: <input type="text" name="publisher" >
+  Publisher: <input type="text" name="publisher" value="<?php echo isset($_POST['publisher']) ? $_POST['publisher'] : '' ?>">
   <span class="error">* <?php echo $publisherErr;?></span>
   <br><br>
-  ISBN: <input type="number" name="isbn" >
+  ISBN: <input type="number" name="isbn" value="<?php echo isset($_POST['isbn']) ? $_POST['isbn'] : '' ?>">
   <span class="error">* <?php echo $isbnErr;?></span>
   <br><br>
   Cover image: <input type="file" id="image" name="image" >
@@ -51,13 +51,13 @@ function test_input($data) {
 
 <!-- Edit form -->
 <form id="form2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">  
-  Name: <input type="text" name="name1" >
+  Name: <input type="text" name="name1" value="<?php echo isset($_POST['name1']) ? $_POST['name1'] : '' ?>">
   <span class="error"><?php echo $nameErr1;?></span>
   <br><br>
-  Publisher: <input type="text" name="publisher1" >
+  Publisher: <input type="text" name="publisher1" value="<?php echo isset($_POST['publisher1']) ? $_POST['piblisher1'] : '' ?>">
   <span class="error"><?php echo $publisherErr1;?></span>
   <br><br>
-  ISBN: <input type="number" name="isbn1" >
+  ISBN: <input type="number" name="isbn1" value="<?php echo isset($_POST['isbn1']) ? $_POST['isbn1'] : '' ?>">
   <span class="error"><?php echo $isbnErr1;?></span>
   <br><br>
   Cover image: <input type="file" name="image1" >
@@ -74,7 +74,7 @@ function test_input($data) {
 <h2 class="center">Search</h2>
 <span class="error"><?php echo $searchErr;?></span>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-  <input type="text" name="quary">
+  <input type="text" name="quary" value="<?php echo isset($_POST['quary']) ? $_POST['quary'] : '' ?>">
   <input class="button1" type="submit" name="search" value="search">
 </form>
 <h2 class="center">Books!</h2>

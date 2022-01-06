@@ -26,7 +26,7 @@ if(!$conn){
   echo 'Connection error' . mysqli_connect_error(); 
 }
 else{
-  $sql = "SELECT * FROM books ORDER BY id LIMIT $page1 ,10";
+  $sql = "SELECT * FROM books ORDER BY id DESC LIMIT $page1 ,10";
   $result = mysqli_query($conn,$sql);
 
   $books = mysqli_fetch_all($result, MYSQLI_ASSOC);
