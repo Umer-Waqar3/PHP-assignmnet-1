@@ -50,22 +50,21 @@ function test_input($data) {
 </form>
 
 <!-- Edit form -->
-<form id="form2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">  
+<form id="form2" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data" >  
   Name: <input type="text" name="name1" value="<?php echo isset($_POST['name1']) ? $_POST['name1'] : '' ?>">
-  <span class="error"><?php echo $nameErr1;?></span>
+  <span class="error1"><?php echo $nameErr1;?></span>
   <br><br>
-  Publisher: <input type="text" name="publisher1" value="<?php echo isset($_POST['publisher1']) ? $_POST['piblisher1'] : '' ?>">
-  <span class="error"><?php echo $publisherErr1;?></span>
+  Publisher: <input type="text" name="publisher1" value="<?php echo isset($_POST['publisher1']) ? $_POST['publisher1'] : '' ?>">
+  <span class="error11"><?php echo $publisherErr1;?></span>
   <br><br>
   ISBN: <input type="number" name="isbn1" value="<?php echo isset($_POST['isbn1']) ? $_POST['isbn1'] : '' ?>">
-  <span class="error"><?php echo $isbnErr1;?></span>
+  <span class="error12"><?php echo $isbnErr1;?></span>
   <br><br>
   Cover image: <input type="file" name="image1" >
-  <span class="error"><?php echo $imgErr1;?></span>
   <br><br>
   <input type="hidden" name="id">
   <input type="hidden" name="image2">
-  <input class="button1" type="submit" id="edit" name="edit" value="edit">
+  <input class="button1" type="submit" name="edit" value="edit" >
   <a class="button1" href="index.php">Cancel</a>
 </form>
 

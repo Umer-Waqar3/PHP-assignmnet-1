@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if (empty($_POST["name1"])) {
       $nameErr1 = "Name is required";
+      echo "<script> edit(); </script>";
     } else {
       if (!preg_match("/^[a-zA-Z-.' ]*$/",$_POST["name1"])) {
         $nameErr1 = "Only letters and white space allowed";
@@ -28,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if (empty($_POST["publisher1"])) {
       $publisherErr1 = "publisher is required";
+      echo "<script> edit(); </script>";
     } else {
       if (!preg_match("/^[a-zA-Z-.' ]*$/",$_POST["publisher1"])) {
         $publsherErr1 = "Only letters and white space allowed";
@@ -40,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if (empty($_POST["isbn1"])) {
       $isbnErr1 = "isbn is required";
+      echo "<script> edit(); </script>";
     } else {
       if (!preg_match("/^[0-9]*$/",$_POST["isbn1"])) {
         $isbnErr1 = "Only numbers allowed";
@@ -92,10 +95,6 @@ else{
           unlink($del_image);
           echo $del_image;
           echo 'edited' ;
-          echo '<script type="text/javascript">',
-          'edit();',
-          '</script>'
-        ;
          echo "<meta http-equiv='refresh' content='0'>";
           // success
         } else {
