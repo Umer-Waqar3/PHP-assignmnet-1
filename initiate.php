@@ -5,10 +5,12 @@ $name = $publisher = $img = $isbn = $file = $image_name = $id = $sql5 = "";
 $nameErr = $publisherErr = $isbnErr = $imgErr = $searchErr = "";
 $nameErr1 = $publisherErr1 = $isbnErr1 = $imgErr1 = "";
 $conn = mysqli_connect('localhost','umer','test1234','assignment1');
-$sql = "SELECT * FROM books";
+$sql = "SELECT Count(*) AS count FROM books";
 $result = mysqli_query($conn,$sql );
 $books = mysqli_fetch_all($result, MYSQLI_ASSOC);
-$count = count($books);
+foreach($books as $book){
+  $count = (int)$book['count'];
+}
 $pages = ceil($count/2);
 $page = "";
 if(isset($_GET["page"])){
