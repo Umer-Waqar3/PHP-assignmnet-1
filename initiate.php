@@ -9,7 +9,7 @@ $sql = "SELECT * FROM books";
 $result = mysqli_query($conn,$sql );
 $books = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $count = count($books);
-$pages = ceil($count/10);
+$pages = ceil($count/2);
 $page = "";
 if(isset($_GET["page"])){
   $page = $_GET["page"];
@@ -19,14 +19,14 @@ if($page=="" || $page=="1"){
   $page1 = 0;
 }
 else{
-  $page1 = ($page*10)-10;
+  $page1 = ($page*2)-2;
 }
 
 if(!$conn){
   echo 'Connection error' . mysqli_connect_error(); 
 }
 else{
-  $sql = "SELECT * FROM books ORDER BY id DESC LIMIT $page1 ,10";
+  $sql = "SELECT * FROM books ORDER BY id DESC LIMIT $page1 ,2";
   $result = mysqli_query($conn,$sql);
 
   $books = mysqli_fetch_all($result, MYSQLI_ASSOC);
