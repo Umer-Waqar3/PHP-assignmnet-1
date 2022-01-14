@@ -8,9 +8,7 @@ $conn = mysqli_connect('localhost','umer','test1234','assignment1');
 $sql = "SELECT Count(*) AS count FROM books";
 $result = mysqli_query($conn,$sql );
 $books = mysqli_fetch_all($result, MYSQLI_ASSOC);
-foreach($books as $book){
-  $count = (int)$book['count'];
-}
+$count = $books[0]['count'];
 $pages = ceil($count/2);
 $page = "";
 if(isset($_GET["page"])){
